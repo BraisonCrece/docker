@@ -9,8 +9,10 @@ ls -ldg /data
 ls -l /data/
 
 # some shells will allow the user to click on the URL in the following lines
-echo && echo && echo "----> Point your browser at http://localhost:8086/~app/index.php" && echo && echo
+echo && echo && echo "----> Point your browser at http://localhost:8086/public_html/" && echo && echo
 
 # run apache not as daemon (in the foreground)
 exec apache2 -D FOREGROUND
+
+
 
