@@ -14,18 +14,13 @@ COPY . /var/www/html/
 
 
 # The PHP app is going to save its state in /data so we make a /data inside the container
-RUN mkdir /data && chown -R www-data /data && chmod 755 /data
+RUN mkdir /data && chown -R www-data /data && chmod 755 /data & chmod 777 -R /var/www/html/
 
 # we need custom php configuration file to enable userdirs
 COPY php.conf /etc/apache2/mods-available/php7.3.conf
 
 # enable userdir and php
 RUN a2enmod php7.3
-
-#Change dirs permissions so apache cloud write
-RUN chown -hR www-data:www-data /etc/apache2/ && chown -hR www-data:www-data /var/log/apache2/ && chown -hR www-data:www-data /var/run/apache2
-#Run as a www-data (root is a security risk)
-USER www-data
 
 # we run a script to stat the server; the array syntax makes it so ^C will work as we want
 CMD  ["./entrypoint.sh"]
