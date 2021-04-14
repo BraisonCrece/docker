@@ -6,7 +6,7 @@
 
 docker run \
     --rm \
-    -p8086:8080 \
+    -p443:443 \
     --name="chapter2" \
     -v `pwd`:/home/app \
     chapter2

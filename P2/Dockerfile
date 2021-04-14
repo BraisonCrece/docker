@@ -16,11 +16,15 @@ COPY . /var/www/html/
 # The PHP app is going to save its state in /data so we make a /data inside the container
 RUN mkdir /data && chown -R www-data /data && chmod 755 /data & chmod 775 -R /var/www/html/
 
+RUN mkdir /etc/apache2/ssl
+COPY apache.crt /etc/apache2/ssl
+COPY apache.key /etc/apache2/ssl
+
 # we need custom php configuration file to enable userdirs
 COPY php.conf /etc/apache2/mods-available/php7.3.conf
 
 # enable userdir and php
-RUN a2enmod php7.3
-
+RUN a2enmod php7.3 && a2enmod ssl
+ 
 # we run a script to stat the server; the array syntax makes it so ^C will work as we want
 CMD  ["./entrypoint.sh"]
